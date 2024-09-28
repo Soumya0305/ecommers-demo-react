@@ -11,32 +11,23 @@ const AuthenticatedPage = ({ authenticated, expires_at, impersonated_session, to
 	const logout = useLogin();
 
 	useEffect(() => {
-		if (!location.pathname.includes("login")) {
-			if (authenticated) {
-				if ((expires_at * 1000) < Date.now()) {
-					logout({})
-					navigate("/")
-				} else {
-					if (location.pathname === "/" || location.pathname == "/login") {
-						navigate("/dashboard")
-					}
+		if (authenticated) {
+			if (expires_at * 1000 > Date.now()) {
+				if (location.pathname === "/" || location.pathname === "/login" || location.pathname === "/sign-up") {
+					navigate("/dashboard");
 				}
 			} else {
-				logout({})
-				navigate("/")
-            }
-        }
-	}, [authenticated])
-
-	useEffect(() => {
-		if (!authenticated) {
-			logout({})
-			//navigate("/home")
-		} else if ([ "/", "/login"].indexOf(location.pathname) > -1) {
-			navigate("/dashboard")
+				logout();
+				navigate("/");
+			}
+		} else {
+			if (location.pathname === "/" || location.pathname === "/login" || location.pathname === "/sign-up") {
+				return;
+			} else {
+				navigate("/");
+			}
 		}
-
-	}, [location.pathname])
+	}, [authenticated, expires_at, location.pathname]);
 
 	return <BaseLayout authenticated={authenticated}>
 		<Outlet />

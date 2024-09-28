@@ -1,41 +1,45 @@
-import React, { Fragment } from "react";
+// src/BaseLayout.js
+import React, { Fragment, useState, useEffect } from "react";
 import { ToastContainer } from "react-toastify";
-import { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 
-export default function BaseLayout({ children, authenticated }) {
+ function BaseLayout({ children, authenticated }) {
+  const [minHeight, setMinHeight] = useState(window.innerHeight);
 
-	const [minHeight, setMinHeight] = useState(window.innerHeight);
+  useEffect(() => {
+    const handleResize = () => {
+      setMinHeight(window.innerHeight);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize); // Fix: use removeEventListener
+    };
+  }, []);
 
-	useEffect(() => {
-		const handleResize = () => {
-			setMinHeight(window.innerHeight);
-		};
-		window.addEventListener("resize", handleResize);
-		return () => {
-			window.addEventListener("resize", handleResize);
-		};
-	}, []);
+  return (
+    <div style={{ minHeight: `${minHeight}px` }} className="flex flex-col bg-[#F9E5C3]">
+      <ToastContainer
+        position="bottom-left"
+        autoClose={5000}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        icon={false}
+        pauseOnHover
+        style={{ zIndex: "9999991", position: "fixed", bottom: "1em" }}
+      />
+      
+      {/* Navbar */}
+      <Navbar />
 
-	// todo themeing
-	return (
-		<div className="">
-			<ToastContainer
-				position="bottom-left"
-				autoClose={5000}
-				newestOnTop={false}
-				closeOnClick
-				rtl={false}
-				pauseOnFocusLoss
-				draggable
-				icon={false}
-				pauseOnHover
-				style={{ zIndex: "9999991", position: "fixed", bottom: "1em" }}
-			/>
-			<div className="h-screen bg-[#F9E5C3]  px-4 py-4">
-				<Navbar />
-				{children}
-			</div>
-		</div>
-	);
+      {/* Main Content */}
+      <main className="flex-grow px-4 py-4">
+        {children}
+      </main>
+    </div>
+  );
 }
+
+export default BaseLayout

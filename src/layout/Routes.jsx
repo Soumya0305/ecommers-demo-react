@@ -7,6 +7,7 @@ import LandingPage from '../client/landing';
 import AuthenticatedPage from './AuthenticatedPage';
 import Dashboard from '../client/dashboard';
 import ErrorBoundary from './ErrorBoundary';
+import HomeAndDecor from '../components/homeDecore';
 
 function Routes() {
   
@@ -17,12 +18,13 @@ function Routes() {
       <Route path="/" element={<LandingPage />} errorElement={<ErrorBoundary />} />
 
       {/* Sign-up route */}
-      <Route path="/sign-up" element={<SignUp />} errorElement={<ErrorBoundary />} />
 
       {/* Protected routes */}
       <Route path="/" element={<AuthenticatedPage />} errorElement={<ErrorBoundary />}>
           <Route path="login" element={<Login />} errorElement={<ErrorBoundary />} />
+          <Route path="sign-up" element={<SignUp />} errorElement={<ErrorBoundary />} />
           <Route path="dashboard" element={<Dashboard />} errorElement={<ErrorBoundary />} />
+          <Route path="shop/home-living" element={<HomeAndDecor />} errorElement={<ErrorBoundary />}/>
       </Route>
   </>
     )

@@ -1,13 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux';
+import ProductList from '../components/productList';
 
 const Dashboard = (props) => {
     console.log(props.user)
   return (
-    <React.Fragment>
-    <div>dashboard</div>
-    <div> Welcome {props?.user}</div>
-    </React.Fragment> 
+    <div className="p-6 bg-[#F9E5C3] min-h-screen">
+  <ProductList />
+</div>
+
   )
 }
 
