@@ -13,3 +13,7 @@ export const loginUser = async (userData) => {
 export const fetchProducts = async (category) => {
   return await axios.get(`${API_URL}/products?category=${category ? category : ""}`);
 };
+
+export const getProductDetail = async (productId) => {
+  return await axios.get(`${API_URL}/products/${productId}`);
+}

@@ -32,7 +32,7 @@ function Login(props) {
                 expires_at: decodedToken.exp,
             });
 
-            navigate("/dashboard");
+            navigate("/products");
             toast.success(res?.data?.message);
         } catch (error) {
             console.error('Error:', error);

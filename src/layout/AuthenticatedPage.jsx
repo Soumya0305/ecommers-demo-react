@@ -14,7 +14,7 @@ const AuthenticatedPage = ({ authenticated, expires_at, impersonated_session, to
 		if (authenticated) {
 			if (expires_at * 1000 > Date.now()) {
 				if (location.pathname === "/" || location.pathname === "/login" || location.pathname === "/sign-up") {
-					navigate("/dashboard");
+					navigate("/products");
 				}
 			} else {
 				logout();
