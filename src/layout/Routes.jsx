@@ -1,5 +1,3 @@
-import { fetchProducts } from '../api';
-import { useEffect, useState } from 'react';
 import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom';
 import Login from '../forms/Login'; // Make sure to create this component
 import SignUp from '../forms/SignUp';
@@ -8,6 +6,7 @@ import AuthenticatedPage from './AuthenticatedPage';
 import Dashboard from '../client/dashboard';
 import ErrorBoundary from './ErrorBoundary';
 import HomeAndDecor from '../components/homeDecore';
+import Women from "../components/women";
 
 function Routes() {
   
@@ -25,6 +24,7 @@ function Routes() {
           <Route path="sign-up" element={<SignUp />} errorElement={<ErrorBoundary />} />
           <Route path="dashboard" element={<Dashboard />} errorElement={<ErrorBoundary />} />
           <Route path="shop/home-living" element={<HomeAndDecor />} errorElement={<ErrorBoundary />}/>
+          <Route path="shop/women" element={<Women />} errorElement={<ErrorBoundary />}/>
       </Route>
   </>
     )

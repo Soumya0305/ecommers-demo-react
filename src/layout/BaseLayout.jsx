@@ -17,7 +17,7 @@ import Navbar from "./Navbar";
   }, []);
 
   return (
-    <div style={{ minHeight: `${minHeight}px` }} className="flex flex-col bg-[#F9E5C3]">
+    <div style={{ minHeight: `${minHeight}px` }} className="flex flex-col">
       <ToastContainer
         position="bottom-left"
         autoClose={5000}
@@ -35,7 +35,7 @@ import Navbar from "./Navbar";
       <Navbar />
 
       {/* Main Content */}
-      <main className="flex-grow px-4 py-4">
+      <main className="flex-grow">
         {children}
       </main>
     </div>

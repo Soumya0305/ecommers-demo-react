@@ -5,7 +5,7 @@ import ProductList from '../components/productList';
 const Dashboard = (props) => {
     console.log(props.user)
   return (
-    <div className="p-6 bg-[#F9E5C3] min-h-screen">
+    <div className="p-6 min-h-screen">
   <ProductList />
 </div>
 

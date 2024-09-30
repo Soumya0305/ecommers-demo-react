@@ -18,10 +18,9 @@ const Navbar = (props) => {
                 <div className="flex items-center space-x-8">
                     <Link to="/" className="text-white text-xl font-bold">E-Comm</Link>
                     <div className="flex space-x-4">
-                        <Link to="/categories/men" className="text-white hover:text-[#F9E5C3]">Men</Link>
-                        <Link to="/categories/women" className="text-white hover:text-[#F9E5C3]">Women</Link>
-                        <Link to="/categories/kids" className="text-white hover:text-[#F9E5C3]">Kids</Link>
-                        <Link to="/categories/beauty" className="text-white hover:text-[#F9E5C3]">Beauty</Link>
+                        <Link to="/shop/men" className="text-white hover:text-[#F9E5C3]">Men</Link>
+                        <Link to="/shop/women" className="text-white hover:text-[#F9E5C3]">Women</Link>
+                        <Link to="/shop/kids" className="text-white hover:text-[#F9E5C3]">Kids</Link>
                         <Link to="/shop/home-living" className="text-white hover:text-[#F9E5C3]">Home Décor</Link>
                     </div>
                 </div>
