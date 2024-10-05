@@ -33,7 +33,7 @@ const ProductList = (props) => {
                 onClick={() => navigateToDetail(product)}>
                     <img src={product.image} alt={product.name} className="w-full h-56
                      object-cover" />
-                    <div className="p-4 bg-[#F9E5C3]">
+                    <div className="p-4 bg-gray-100">
                         <h3 className="text-lg font-semibold">{product.name}</h3>
                         <p className="text-gray-600 mt-1">{product.price}</p>
                     </div>
