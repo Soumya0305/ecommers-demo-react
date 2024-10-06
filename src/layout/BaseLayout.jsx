@@ -2,9 +2,24 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import Navbar from "./Navbar";
+import { useLocation } from "react-router-dom";
 
  function BaseLayout({ children, authenticated }) {
   const [minHeight, setMinHeight] = useState(window.innerHeight);
+  const [currentStep, setCurrentStep] = useState('bag');
+  const location = useLocation();
+
+  useEffect(() => {
+    if(location.pathname.includes("/checkout/address")){
+      setCurrentStep('address')
+    }
+    else if(location.pathname.includes("/checkout/payment")){
+      setCurrentStep('payment')
+    }
+    else if(location.pathname.includes("/checkout/cart")){
+      setCurrentStep("bag")
+    }
+  }, [location.pathname])
 
   useEffect(() => {
     const handleResize = () => {
@@ -32,7 +47,7 @@ import Navbar from "./Navbar";
       />
       
       {/* Navbar */}
-      <Navbar />
+      <Navbar currentStep={currentStep} />
 
       {/* Main Content */}
       <main className="flex-grow">

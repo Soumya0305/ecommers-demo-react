@@ -10,6 +10,7 @@ import Women from "../client/women";
 import Men from "../client/men";
 import ProductDetail from '../components/productDetail';
 import MyCart from '../components/myCart';
+import Address from '../components/address';
 
 function Routes() {
   
@@ -30,7 +31,8 @@ function Routes() {
           <Route path="shop/home-living" element={<HomeAndDecor />} errorElement={<ErrorBoundary />}/>
           <Route path="shop/women" element={<Women />} errorElement={<ErrorBoundary />}/>
           <Route path="shop/men" element={<Men />} errorElement={<ErrorBoundary />}/>
-          <Route path="/my-cart" element={<MyCart />} errorElement={<ErrorBoundary />} />
+          <Route path="/checkout/cart" element={<MyCart />} errorElement={<ErrorBoundary />} />
+          <Route path="/checkout/address" element={<Address />} errorElement={<ErrorBoundary />} />
       </Route>
   </>
     )

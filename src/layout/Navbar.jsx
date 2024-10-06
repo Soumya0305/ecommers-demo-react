@@ -1,17 +1,36 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useLogin } from '../custom/useLogin';
 import { connect } from 'react-redux';
 
 const Navbar = (props) => {
     const logOut = useLogin();
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const location = useLocation();
+    console.log(location, "location")
 
-    const toggleDropdown = () => {
-        setIsDropdownOpen(!isDropdownOpen);
-    };
+    const checkOnCheckoutPage = () => {
+        if(location.pathname.includes('/checkout' || "/checkout/cart" || "/checkout/address" || "checkout/payment")){
+            return true;
+        }
+        return false;
+    }
 
     return (
+        <React.Fragment>
+        {checkOnCheckoutPage() ? 
+            <div className="flex items-center justify-center border-bottom space-x-4 my-6">
+            <div className="flex items-center">
+                <div className={`font-semibold tracking-[3px] ${props?.currentStep === 'bag' ? 'text-[#FF4500]' : 'text-gray-500'}`}>BAG</div>
+                <span className="mx-2">----------</span>
+            </div>
+            <div className="flex items-center">
+                <div className={`font-semibold tracking-[3px] ${props?.currentStep === 'address' ? 'text-[#FF4500]' : 'text-gray-500'}`}>ADDRESS</div>
+                <span className="mx-2">---------</span>
+            </div>
+            <div className={`flex items-center ${props?.currentStep === 'payment' ? 'text-[#FF4500]' : 'text-gray-500'}`}>
+                <span className="font-semibold tracking-[3px]">PAYMENT</span>
+            </div>
+        </div> : 
         <nav className="bg-[#D9534F] font-serif p-4 shadow-md">
             <div className="container mx-auto flex justify-between items-center">
                 {/* Left Side: Logo and Categories */}
@@ -34,7 +53,7 @@ const Navbar = (props) => {
 
                 {/* Right Side: Auth Links */}
                 <div className="flex items-center space-x-4">
-                    <Link to="/my-cart" className="text-white hover:text-[#F9E5C3]">My Cart</Link>
+                    <Link to="/checkout/cart" className="text-white hover:text-[#F9E5C3]">My Cart</Link>
                     {!props.authenticated ? (
                         <>
                             <Link to="/login">
@@ -55,7 +74,8 @@ const Navbar = (props) => {
                     )}
                 </div>
             </div>
-        </nav>
+        </nav>}
+        </React.Fragment>
     );
 };
 
