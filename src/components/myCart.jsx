@@ -12,6 +12,7 @@ const MyCart = (props) => {
     const [discount, setDiscount] = useState('');
     const [totalPrice, setTotalPrice] = useState(0);
     const navigate = useNavigate();
+    const [totalItems, setTotalItems] = useState(0);
 
     useEffect(() => {
         fetchCartProducts();
@@ -20,6 +21,7 @@ const MyCart = (props) => {
     const fetchCartProducts = () => {
         getCartItems(props.token).then(res => {
             setCartItems(res.data.items);
+            setTotalItems(res.data.totalItems)
             calculateTotal(res.data.items);
         }).catch(e => {
             console.error(e);
@@ -65,9 +67,9 @@ const MyCart = (props) => {
         <React.Fragment>
             {cartItems.length > 0 ? <div className="max-w-[80rem] mx-auto mt-10 p-6 rounded-lg grid grid-cols-1 lg:grid-cols-2 gap-[15rem]">
                 {/* Left Column: Cart Items */}
-                <div className="space-y-3 w-[38rem] h-[calc(100vh-20rem)]"> {/* Adjust height as needed */}
+                <div className="space-y-3 w-[38rem] p-4 h-[calc(100vh-20rem)]"> {/* Adjust height as needed */}
                     <div className="bg-[#F9E5C3] rounded mb-8 p-6 border-2 flex justify-between items-center">
-                        <span>Check Delivery Time and Services</span>
+                        <span className="font-semibold">Check delivery time and services.</span>
                         <button className="text-[#FF4500] font-semibold px-4 py-2 rounded border-2 border-[#FF4500]">ENTER PINCODE</button>
                     </div>
                     {cartItems.length > 0 &&
@@ -116,10 +118,12 @@ const MyCart = (props) => {
 
                 {/* Right Column: Order Summary */}
                 <div className="bg-white p-4 shadow-md flex flex-col rounded-lg h-auto">
-                    <h2 className="text-2xl font-semibold mb-4 text-center">Order Summary</h2>
+                <div className="flex justify-between mb-4">
+                        <span className="font-serif">PRICE DETAILS ({totalItems} items )</span>
+                    </div>
                     <div className="flex justify-between mb-4">
-                        <span className="text-xl font-semibold">Total Amount:</span>
-                        <span className="text-xl font-semibold">₹ {totalPrice.toFixed(2)}</span>
+                        <span className="font-serif">Total Amount :</span>
+                        <span className="font-semibold">₹ {totalPrice.toFixed(2)}</span>
                     </div>
                     <button className="w-full font-semibold py-2 rounded bg-[#D9534F] shadow-md text-lg text-white transition duration-200 hover:bg-[#FF4500]"
                         onClick={() => navigate('/checkout/address')}>
