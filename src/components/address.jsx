@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
+import AddAddressModal from '../modals/addAddressModal';
 
 const DeliveryAddressComponent = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [addresses, setAddresses] = useState([{ id: 1, address: '123 Main St, City, Country', isDefault: true },{ id: 2, address: '1234 Main St, City, Country', isDefault: false }]);
   const [newAddress, setNewAddress] = useState('');
   const [deliveryEstimate, setDeliveryEstimate] = useState('2-3 days');
 
-  const handleAddAddress = () => {
-    if (newAddress) {
-      const newAddressObject = { id: addresses.length + 1, address: newAddress, isDefault: false };
-      setAddresses([...addresses, newAddressObject]);
-      setNewAddress(''); // Clear input after adding
-    }
+  const handleAddAddress = (newAddress) => {
+    // Add the new address to your addresses state
+    setAddresses((prev) => [...prev, newAddress]);
+    // You can also make an API call to save the address here
   };
 
   return (
@@ -21,7 +21,7 @@ const DeliveryAddressComponent = () => {
           <span className="text-xl font-serif">Select Delivery Address</span>
           <button 
             className="px-4 py-2 rounded border-2 border-black" 
-            onClick={handleAddAddress}
+            onClick={() => setIsModalOpen(true)}
           >
             ADD NEW ADDRESS
           </button>
@@ -29,7 +29,7 @@ const DeliveryAddressComponent = () => {
         <div>
           {addresses.map((address) => (
             <>
-            <div className="mt-6">{address.isDefault ? "DEFAULT ADDRESS" : "OTHER ADDRESS"}</div>
+            <div key={address.id} className="mt-6">{address.isDefault ? "DEFAULT ADDRESS" : "OTHER ADDRESS"}</div>
             <div key={address.id} className="p-4 border mt-4 rounded">
               <p>{address.address}</p>
             </div>
@@ -58,6 +58,11 @@ const DeliveryAddressComponent = () => {
           CONTINUE
         </button>
       </div>
+      <AddAddressModal
+        isOpen={isModalOpen}
+        setIsOpen={setIsModalOpen}
+        onAddAddress={handleAddAddress}
+      />
     </div>
   );
 };

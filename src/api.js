@@ -51,3 +51,15 @@ export const updateCartQuantity = async (token, payload) => {
             }
           })
   };
+
+export const addNewAddress = async (token, payload) => {
+  return await axios.post(`${API_URL}/address/add-new-address`, payload,
+    {headers: {
+      Authorization: `Bearer ${token}`
+    }}
+  )
+};
+
+export const getAllAddress = async (token) => {
+  return await axios.post(`${API_URL}/address/`)
+}
