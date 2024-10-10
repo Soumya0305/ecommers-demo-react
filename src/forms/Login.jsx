@@ -81,7 +81,7 @@ function Login(props) {
                 </div>
 
                 <div className="text-center mt-2">
-                    <p className="text-sm">Don't have an account? <a href="/sign-up" onClick={() => navigate("/sign-up")} className="text-[#D9534F] hover:underline">Sign Up</a></p>
+                    <p className="text-sm">Don't have an account? <a onClick={() => navigate("/sign-up")} className="text-[#D9534F] hover:underline">Sign Up</a></p>
                 </div>
             </form>
         </div>

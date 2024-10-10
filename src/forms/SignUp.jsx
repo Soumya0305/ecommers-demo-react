@@ -93,7 +93,7 @@ function SignUp() {
                 </button>
 
                 <div className="text-center mt-4">
-                    <p className="text-sm">Already have an account? <a href="/login" onClick={() => navigate("/login")} className="text-[#FF6339] hover:underline">Login</a></p>
+                    <p className="text-sm">Already have an account? <a onClick={() => navigate("/login")} className="text-[#FF6339] hover:underline">Login</a></p>
                 </div>
             </form>
         </div>
