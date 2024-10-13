@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL= 'https://ecommerce-backend-z0q3.onrender.com/api'
+ const API_URL= 'https://ecommerce-backend-z0q3.onrender.com/api'
 //const API_URL = 'http://localhost:5001/api';
 
 export const registerUser = async (userData) => {
@@ -62,5 +62,9 @@ export const addNewAddress = async (token, payload) => {
 };
 
 export const getAllAddress = async (token) => {
-  return await axios.post(`${API_URL}/address/`)
+  return await axios.get(`${API_URL}/address/all-address`,{
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
 }
