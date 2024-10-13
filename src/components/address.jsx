@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import AddAddressModal from '../modals/addAddressModal';
 import { getAllAddress } from '../api';
 import { connect } from 'react-redux';
+import { calculateTotal } from '../partials/commonFunctions';
+import { ecomm_store } from '../store/common_store';
 
 const DeliveryAddressComponent = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -10,6 +12,8 @@ const DeliveryAddressComponent = (props) => {
   const [deliveryEstimate, setDeliveryEstimate] = useState('2-3 days');
   const [selectedAddress, setSelectedAddress] = useState("")
   const [isDefault, setIsDefault] = useState("")
+  const state = ecomm_store.getState();
+  console.log(state);
 
   useEffect(() => {
     AddressList()
@@ -28,6 +32,8 @@ const DeliveryAddressComponent = (props) => {
     <div className="max-w-[80rem] mx-auto mt-10 p-6 rounded-lg grid grid-cols-1 lg:grid-cols-2 gap-[15rem]">
   {/* Left Column: Cart Items */}
   <div className="space-y-3 w-[38rem] p-4 h-[calc(100vh-20rem)]">
+    
+  {addresses.length > 0 ? <>
     <div className="mb-8 flex justify-between items-center">
       <span className="text-xl font-serif">Select Delivery Address</span>
       <button 
@@ -90,10 +96,17 @@ const DeliveryAddressComponent = (props) => {
       </div>
     )}
 
+
     <div className="p-4 border mt-4 rounded text-lg font-semibold text-[#FF4500]"
     onClick={() => setIsModalOpen(true)}>
       + Add New Address
     </div>
+    </> : <AddAddressModal
+    isModel={false}
+    isOpen={true}
+    setIsOpen={setIsModalOpen}
+    onAddAddress={AddressList}
+  />}
   </div>
 
   {/* Right Column: Order Summary */}
@@ -103,7 +116,7 @@ const DeliveryAddressComponent = (props) => {
     </div>
     <div className="flex justify-between mb-4">
       <span className="font-serif">Total Amount :</span>
-      <span className="font-semibold">₹ </span>
+      <span className="font-semibold">₹ {calculateTotal(props.cart.items)}</span>
     </div>
     <div className="flex justify-between mb-4">
       <span className="font-serif">Delivery Estimate:</span>
@@ -115,6 +128,7 @@ const DeliveryAddressComponent = (props) => {
   </div>
   
   <AddAddressModal
+    isModel={true}
     isOpen={isModalOpen}
     setIsOpen={setIsModalOpen}
     onAddAddress={AddressList}
@@ -126,6 +140,7 @@ const DeliveryAddressComponent = (props) => {
 function mapStateToProps(state) {
   return {
       token: state.auth.authData.token,
+      cart: state.cart.cartData,
   }
 }
 export default connect(mapStateToProps)(DeliveryAddressComponent)

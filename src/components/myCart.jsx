@@ -6,6 +6,8 @@ import { removeItemFromCart } from '../api';
 import { updateCartQuantity } from '../api';
 import { useNavigate } from 'react-router-dom';
 import NoItemsInCart from './NoItemsFound';
+import { calculateTotal } from '../partials/commonFunctions';
+import { ecomm_store } from '../store/common_store';
 
 const MyCart = (props) => {
     const [cartItems, setCartItems] = useState([]);
@@ -13,6 +15,7 @@ const MyCart = (props) => {
     const [totalPrice, setTotalPrice] = useState(0);
     const navigate = useNavigate();
     const [totalItems, setTotalItems] = useState(0);
+    const state = ecomm_store.getState();
 
     useEffect(() => {
         fetchCartProducts();
@@ -22,15 +25,14 @@ const MyCart = (props) => {
         getCartItems(props.token).then(res => {
             setCartItems(res.data.items);
             setTotalItems(res.data.totalItems)
-            calculateTotal(res.data.items);
+            calculateTotalCart(res.data.items);
         }).catch(e => {
             console.error(e);
         });
     }
 
-    const calculateTotal = (items) => {
-        const total = items.reduce((total, item) => total + item.product.price * item.quantity, 0);
-        setTotalPrice(total);
+    const calculateTotalCart = (items) => {
+        setTotalPrice(calculateTotal(items));
     };
 
     const updateQuantity = (product, change) => {

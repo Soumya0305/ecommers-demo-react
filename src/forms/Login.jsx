@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../api';
 import { toast } from "react-toastify";
 import { _setAuthData } from '../actions/authSlice';
 import { connect } from "react-redux";
 import { jwtDecode } from 'jwt-decode';
+import { getCartItems } from '../api';
 import { ecomm_store } from '../store/common_store';
+import { _updateCartData } from '../actions/cartSlice';
 
 function Login(props) {
     const [password, setPassword] = useState("");
@@ -32,6 +34,10 @@ function Login(props) {
                 token: token,
                 expires_at: decodedToken.exp,
             });
+            getCartItems(token).then(res => {
+                props._updateCartData(res.data);
+            })
+            
 
             navigate("/products");
             toast.success(res?.data?.message);
@@ -90,8 +96,10 @@ function Login(props) {
 
 function mapStateToProps(state) {
     return {
-        user: state?.auth?.authData,
+        user: state?.auth?.authData?.user,
+        authenticated: state?.auth?.authData?.authenticated,
+        token: state?.auth?.authData?.token,
     };
 }
 
-export default connect(mapStateToProps, { _setAuthData })(Login);
+export default connect(mapStateToProps, { _setAuthData, _updateCartData})(Login);

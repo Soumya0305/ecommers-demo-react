@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { initialAddress } from '../config/initialStates';
 
 const AddAddressModal = (props) => {
-  const {isOpen, setIsOpen, onAddAddress} = props
+  const {isOpen, setIsOpen, onAddAddress, isModel} = props
   const [formData, setFormData] = useState(initialAddress);
 
   const handleChange = (e) => {
@@ -49,27 +49,26 @@ const AddAddressModal = (props) => {
     addNewAddress(props?.token, formData).then(res => {
       console.log(res.data);
       toast.success("added successfully");
+      onAddAddress();
     })
-    onAddAddress(formData);
-    onClose()
+    isModel && onClose()
   };
-  console.log(formData, "formadata")
 
   if (!isOpen) return null;
 
   return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div className="bg-white  rounded-lg w-[35rem] h-[35rem] shadow-lg flex flex-col">
+      <div className={isModel ? "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" : "border"}>
+        <div className={`bg-white  rounded-lg w-[35rem] ${isModel ? "h-[35rem] shadow-lg" : "h-[41rem]"}  flex flex-col`}>
           {/* Header */}
-          <div className="flex justify-between items-center p-4 border-b">
+          {isModel && <div className="flex justify-between items-center p-4 border-b">
             <h2 className="text-sm font-semibold">ADD NEW ADDRESS</h2>
             <button onClick={onClose} className="text-gray-600 hover:text-gray-900">
               &times; {/* Close button */}
             </button>
-          </div>
+          </div>}
   
           {/* Scrollable Body */}
-          <div className="flex-1 overflow-y-auto p-4">
+          <div className={`flex-1 ${isModel ? "overflow-y-auto" : ""} p-4`}>
             <form onSubmit={handleSubmit}>
               <div className='mb-4'>
                 <p className='text-sm mb-4 font-semibold'>CONTACT DETAILS</p>
