@@ -51,7 +51,7 @@ function Login(props) {
     return (
         <div className="flex justify-center font-serif items-center h-screen bg-[#F9E5C3]">
             <form onSubmit={HandleLogin} className="bg-white p-8 rounded-lg shadow-lg w-96 transition-transform transform hover:scale-105">
-                <h2 className="text-2xl text-center font-semibold mb-6 text-[#D9534F]">Login to your E-comm account</h2>
+                <h2 className="text-2xl text-center  mb-6">Login to your E-comm account</h2>
 
                 <div className="mb-4">
                     <label className="block mb-2 text-gray-700" htmlFor="email">Email :</label>

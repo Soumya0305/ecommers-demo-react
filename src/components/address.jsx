@@ -4,9 +4,11 @@ import { getAllAddress } from '../api';
 import { connect } from 'react-redux';
 import { calculateTotal } from '../partials/commonFunctions';
 import { ecomm_store } from '../store/common_store';
+import { useNavigate } from 'react-router-dom';
 
 const DeliveryAddressComponent = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate()
   const [addresses, setAddresses] = useState([]);
   const [newAddress, setNewAddress] = useState('');
   const [deliveryEstimate, setDeliveryEstimate] = useState('2-3 days');
@@ -122,8 +124,9 @@ const DeliveryAddressComponent = (props) => {
       <span className="font-serif">Delivery Estimate:</span>
       <span className="font-semibold">{deliveryEstimate}</span>
     </div>
-    <button className="w-full font-semibold py-2 rounded bg-[#D9534F] shadow-md text-lg text-white transition duration-200 hover:bg-[#FF4500]">
-      CONTINUE
+    <button className="w-full font-semibold py-2 rounded bg-[#D9534F] shadow-md text-lg text-white transition duration-200 hover:bg-[#FF4500]"
+    onClick={() => navigate(`/checkout/payment`)}>
+      Proceed to Payment
     </button>
   </div>
   
